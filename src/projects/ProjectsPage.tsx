@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../state";
-import { Project } from "./Project";
-import { projectAPI } from "./projectAPI";
+// import { Project } from "./Project"; <-- CUSTOM HOOKS
+// import { projectAPI } from "./projectAPI"; <-- CUSTOM HOOKS
+// import { useProjects } from "./projectHooks"; <-- CUSTOM HOOKS
 import ProjectList from "./ProjectList";
 import { loadProjects } from "./state/projectActions";
 import { ProjectState } from "./state/projectTypes";
@@ -28,9 +29,27 @@ function ProjectsPage() {
     dispatch(loadProjects(1));
   }, [dispatch]);
 
+  // --- CUSTOM HOOKS USAGE ---
+  // const {
+  //   projects,
+  //   loading,
+  //   error,
+  //   currentPage,
+  //   setCurrentPage,
+  //   saveProject,
+  //   saving,
+  //   savingError,
+  // } = useProjects();
+
+  // const handleMoreClick = () =>
+  //   setCurrentPage((currentPage) => currentPage + 1);
+
   return (
     <>
       <h1>Projects</h1>
+
+      {/* {saving && <span className="toast">Saving...</span>} <-- CUSTOM HOOKS */}
+      {/* {(error || savingError) && ( <-- CUSTOM HOOKS */}
 
       {error && (
         <div className="row">
@@ -39,6 +58,7 @@ function ProjectsPage() {
               <p>
                 <span className="icon-alert inverse"></span>
                 {error}
+                {/* {error} {savingError} <-- CUSTOM HOOKS */}
               </p>
             </section>
           </div>
